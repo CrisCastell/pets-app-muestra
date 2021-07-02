@@ -8,9 +8,7 @@ from rest_framework import generics
 from .serializers import RegistrationSerializer, AccountSerializer, AccountImageSerializer, ChangePasswordSerializer, AccountBasicInfoSerializer
 from .models import Account
 from .permissions import IsAssigned
-# from django.core.files.base import ContentFile
-# import base64
-# from myplatform.utils import convertImage
+
 from django.conf import settings
 
 # Create your views here.
@@ -46,36 +44,8 @@ class AccountBasicInfo(generics.RetrieveAPIView):
         user = self.request.user
         return user
 
-# class ChangePasswordView(generics.UpdateAPIView):
-#     queryset = Account.objects.all()
-#     permission_classes = [IsAssigned]
-#     serializer_class = ChangePasswordSerializer
 
 @api_view(['GET'])
 def getUserID(request):
     return Response({"id":request.user.id})
 
-
-# @api_view(['GET', 'PUT'])
-# def accountImage(request):
-#     user = Account.objects.get(pk=request.user.id)
-    
-#     if request.method == 'GET':
-#         serializer = AccountImageSerializer(user)
-#         return Response(serializer.data)
-
-#     if request.method == 'PUT':
-#         data   = request.data
-#         image  = data["profile_image"]
-#         user   = request.user
-        
-
-#         imageFile = convertImage(image, user)
-
-#         newData = { "profile_image": imageFile }
-#         serializer = AccountImageSerializer(instance=user, data=newData)
-
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({'status': "successfull", "message": "Successfully updated", "data": serializer.data})
-#         return Response({"message": "Hubo un error"}, status=400)
